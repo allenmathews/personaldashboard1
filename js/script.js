@@ -31,3 +31,24 @@ fetch("https://api.coingecko.com/api/v3/coins/dogecoin")
         `
     })
     .catch(err => console.error(err))
+
+// function formatAMPM(date) {
+//     let hours = date.getHours();
+//     let minutes = date.getMinutes();
+//     const ampm = hours >= 12 ? 'pm' : 'am';
+//     hours = hours % 12;
+//     hours = hours ? hours : 12;
+//     minutes = minutes < 10 ? '0' + minutes : minutes;
+//     let strTime = hours + ':' + minutes + ' ' + ampm;
+//     return strTime;
+// }
+
+// console.log(formatAMPM(new Date));
+
+// document.getElementById('time').textContent = `Time now: ${formatAMPM(new Date)}`
+function getCurrentTime() {
+    const date = new Date()
+    document.getElementById("time").textContent = date.toLocaleTimeString("en-us", { timeStyle: "medium" })
+}
+
+setInterval(getCurrentTime, 1000)
