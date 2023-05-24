@@ -46,13 +46,21 @@ fetch("https://api.coingecko.com/api/v3/coins/dogecoin")
 // console.log(formatAMPM(new Date));
 
 // document.getElementById('time').textContent = `Time now: ${formatAMPM(new Date)}`
-function getCurrentTime() {
-    const date = new Date()
-    document.getElementById("time").textContent = date.toLocaleTimeString("en-us", { timeStyle: "medium" })
-}
+// function getCurrentTime() {
+//     const date = new Date()
+//     document.getElementById("time").textContent = date.toLocaleTimeString("en-us", { timeStyle: "medium" })
+// }
 
-setInterval(getCurrentTime, 1000)
+// setInterval(getCurrentTime, 1000)
 
 navigator.geolocation.getCurrentPosition(position => {
     console.log(position)
 });
+
+
+fetch('https://api.openweathermap.org/data/2.5/weather?lat=-38.1054&lon=145.2818&units=metric&appid=823586680c80f0bbc19061dd002d2d13')
+    .then(res => res.json())
+    .then(data => {
+        console.log(data)
+        document.getElementById("weather").textContent += `: ${data.main.temp} °C`
+    })
