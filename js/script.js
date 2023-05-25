@@ -23,7 +23,6 @@ fetch("https://api.coingecko.com/api/v3/coins/dogecoin")
             <img src=${data.image.small} />
             <span>${data.name}</span>
         `
-
         document.getElementById("crypto").innerHTML += `
             <p>🎯: $${data.market_data.current_price.usd}</p>
             <p>👆: $${data.market_data.high_24h.usd}</p>
@@ -32,35 +31,28 @@ fetch("https://api.coingecko.com/api/v3/coins/dogecoin")
     })
     .catch(err => console.error(err))
 
-// function formatAMPM(date) {
-//     let hours = date.getHours();
-//     let minutes = date.getMinutes();
-//     const ampm = hours >= 12 ? 'pm' : 'am';
-//     hours = hours % 12;
-//     hours = hours ? hours : 12;
-//     minutes = minutes < 10 ? '0' + minutes : minutes;
-//     let strTime = hours + ':' + minutes + ' ' + ampm;
-//     return strTime;
-// }
+function getCurrentTime() {
+    const date = new Date()
+    document.getElementById("time").textContent = date.toLocaleTimeString("en-us", { timeStyle: "short" })
+}
 
-// console.log(formatAMPM(new Date));
-
-// document.getElementById('time').textContent = `Time now: ${formatAMPM(new Date)}`
-// function getCurrentTime() {
-//     const date = new Date()
-//     document.getElementById("time").textContent = date.toLocaleTimeString("en-us", { timeStyle: "medium" })
-// }
-
-// setInterval(getCurrentTime, 1000)
+setInterval(getCurrentTime, 1000)
 
 navigator.geolocation.getCurrentPosition(position => {
-    console.log(position)
+    fetch(`https://apis.scrimba.com/openweathermap/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=imperial`)
+        .then(res => {
+            if (!res.ok) {
+                throw Error("Weather data not available")
+            }
+            return res.json()
+        })
+        .then(data => {
+            const iconUrl = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
+            document.getElementById("weather").innerHTML = `
+                <img src=${iconUrl} />
+                <p class="weather-temp">${Math.round(data.main.temp)}º</p>
+                <p class="weather-city">${data.name}</p>
+            `
+        })
+        .catch(err => console.error(err))
 });
-
-
-fetch('https://api.openweathermap.org/data/2.5/weather?lat=-38.1054&lon=145.2818&units=metric&appid=823586680c80f0bbc19061dd002d2d13')
-    .then(res => res.json())
-    .then(data => {
-        console.log(data)
-        document.getElementById("weather").textContent += `: ${data.main.temp} °C`
-    })
