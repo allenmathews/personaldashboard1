@@ -45,9 +45,11 @@ navigator.geolocation.getCurrentPosition(position => {
             console.log(data)
                 // document.getElementById("weather").innerHTML = `<img src = https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png />`
             const iconUrl = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
-            document.getElementById('weather').innerHTML = `
+            document.getElementById('weather').innerHTML += `
             <img src=${iconUrl} />
             `
+            document.getElementById('weather').innerHTML += `<p>${Math.round(data.main.temp)} ° C  </p>`
+            document.getElementById('weather').innerHTML += `  <p>${data.name}</p>`
         })
         .catch(err => console.error(err))
 });
