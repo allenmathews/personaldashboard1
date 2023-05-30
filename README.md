@@ -11,5 +11,5 @@ The coin gecko api is used for getting that information
 
 There is a section for putting information about todolist for the day
 
-It will become a chrome extension that pops up whenever you open a new tab
+It will become a chrome extension that pops up whenever you open a new tab.
 
